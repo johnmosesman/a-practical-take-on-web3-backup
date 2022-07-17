@@ -1,0 +1,54 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "workspaces": [
+    "hardhat"
+  ],
+  "scripts": {
+    "account": "npm exec -c 'hardhat account' --workspace=hardhat",
+    "accounts": "npm exec -c 'hardhat accounts' --workspace=hardhat",
+    "balance": "npm exec -c 'hardhat balance' --workspace=hardhat",
+    "build": "remix build",
+    "chain": "npm exec -c 'hardhat node --network hardhat' --workspace=hardhat",
+    "clean": "npm exec -c 'hardhat clean'",
+    "compile": "npm exec -c 'hardhat compile' --workspace=hardhat",
+    "deploy": "npm exec -c 'hardhat deploy --export-all ./hardhat/abis.json' --workspace=hardhat",
+    "postdeploy": "npm exec -c 'hardhat run scripts/publish.js' --workspace=hardhat",
+    "dev": "remix dev",
+    "flatten": "cd packages/hardhat && npx hardhat flatten",
+    "fork": "npm exec -c 'hardhat node --network hardhat --fork https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad' --workspace=hardhat",
+    "fundedwallet": "cd packages/hardhat && npx hardhat fundedwallet",
+    "generate": "npm exec -c 'hardhat generate' --workspace=hardhat",
+    "hh": "./scripts/hh.sh",
+    "mineContractAddress": "cd packages/hardhat && npx hardhat mineContractAddress",
+    "send": "npm exec -c 'hardhat send' --workspace=hardhat",
+    "start": "remix-serve build",
+    "test": "npm exec -c 'hardhat test' --workspace=hardhat",
+    "verify": "npm exec -c 'hardhat verify' --workspace=hardhat",
+    "wallet": "cd packages/hardhat && npx hardhat wallet",
+    "watch": "node scripts/watch.j' --workspace=hardhat"
+  },
+  "dependencies": {
+    "@remix-run/node": "^1.6.5",
+    "@remix-run/react": "^1.6.5",
+    "@remix-run/serve": "^1.6.5",
+    "@web3-react/core": "8.0.22-beta.0",
+    "@web3-react/metamask": "8.0.18-beta.0",
+    "@web3-react/types": "8.0.11-beta.0",
+    "ethers": "^5.6.9",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.6.5",
+    "@remix-run/eslint-config": "^1.6.5",
+    "@types/react": "^17.0.47",
+    "@types/react-dom": "^17.0.17",
+    "eslint": "^8.15.0",
+    "prepend-file": "^2.0.1",
+    "typescript": "^4.6.4"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
