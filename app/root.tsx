@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -7,14 +8,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import Header from "~/components/header";
-import SendEth from "~/components/send-eth";
 import { DappContext } from "./contexts/dapp-context";
+import ConnectWallet from "./dc/connect-wallet";
 import { useDappContext } from "./hooks/useDappContext";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New ScaffodlEth<>Remix App",
+  title: "BentoBlocks™ 🍱",
   viewport: "width=device-width,initial-scale=1",
 });
 
@@ -28,14 +28,29 @@ export default function App() {
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body>
-        <Header />
-        {/* How do we connect  */}
-        {dappContextData && (
-          <DappContext.Provider value={dappContextData}>
-            <Outlet />
-            <SendEth />
-          </DappContext.Provider>
-        )}
+        <div className="mx-auto max-w-xl m-8">
+          <div className="flex flex-row justify-between items-center">
+            <h1 className="text-3xl mb-2">BentoBlocks™ 🍱</h1>
+            <ConnectWallet />
+          </div>
+
+          <div className="mb-24">
+            <Link className="mr-4 underline" to="/chefs">
+              Chefs 🧑‍🍳
+            </Link>
+            <Link className="underline" to="/diners">
+              Diners 🍽
+            </Link>
+          </div>
+
+          {/* How do we connect  */}
+          {dappContextData && (
+            <DappContext.Provider value={dappContextData}>
+              <Outlet />
+            </DappContext.Provider>
+          )}
+        </div>
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

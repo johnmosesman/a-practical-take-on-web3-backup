@@ -12,7 +12,7 @@
     "chain": "npm exec -c 'hardhat node --network hardhat' --workspace=hardhat",
     "clean": "npm exec -c 'hardhat clean'",
     "compile": "npm exec -c 'hardhat compile' --workspace=hardhat",
-    "deploy": "npm exec -c 'hardhat deploy --export-all ./hardhat/abis.json' --workspace=hardhat",
+    "deploy": "npm exec -c 'hardhat deploy --export-all ./abis.json' --workspace=hardhat",
     "postdeploy": "npm exec -c 'hardhat run scripts/publish.js' --workspace=hardhat",
     "dev": "remix dev",
     "flatten": "cd packages/hardhat && npx hardhat flatten",

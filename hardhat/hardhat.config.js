@@ -1,6 +1,7 @@
 require("@nomiclabs/hardhat-waffle");
 require("hardhat-deploy");
 require("@nomiclabs/hardhat-ethers");
+require("dotenv").config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -20,4 +21,21 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.13",
+  chainId: 31337,
+  networks: {
+    hardhat: {
+      live: false,
+      saveDeployments: true,
+    },
+    rinkeby: {
+      url: process.env.ALCHEMY_URL,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+    },
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0,
+    },
+  },
 };
