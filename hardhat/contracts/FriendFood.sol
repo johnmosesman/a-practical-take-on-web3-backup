@@ -7,6 +7,7 @@ contract FriendFood {
     struct Dinner {
         string name;
         uint256 price;
+        uint256 balance;
     }
 
     uint256 public constant maxReservations = 5;
@@ -22,16 +23,15 @@ contract FriendFood {
     event ReservationMade(address indexed chef, address indexed diner);
 
     function createDinner(string memory name, uint256 price) public {
-        // console.log("price", price);
         require(price > 0, "Invalid price");
 
-        dinners[msg.sender] = Dinner({name: name, price: price});
+        dinners[msg.sender] = Dinner({name: name, price: price, balance: 0});
 
         emit DinnerCreated(msg.sender, name, price);
     }
 
     function reserve(address chef) public payable {
-        Dinner memory dinner = dinners[chef];
+        Dinner storage dinner = dinners[chef];
 
         require(dinner.price > 0, "Dinner doesn't exist");
         require(msg.value == dinner.price, "Payment required");
@@ -39,7 +39,21 @@ contract FriendFood {
         // TODO: require not a duplicate reservation
 
         reservations[chef].push(msg.sender);
+        dinner.balance += msg.value;
 
         emit ReservationMade(chef, msg.sender);
+    }
+
+    function withdraw() public {
+        Dinner storage dinner = dinners[msg.sender];
+
+        require(dinner.price > 0, "Dinner doesn't exist");
+        require(dinner.balance > 0, "No balance");
+
+        uint256 amount = dinner.balance;
+        dinner.balance = 0;
+
+        (bool sent, bytes memory data) = msg.sender.call{value: amount}("");
+        require(sent, "Withdraw failed");
     }
 }

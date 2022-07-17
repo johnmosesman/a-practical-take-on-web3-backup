@@ -67,4 +67,29 @@ describe("FriendFood", function () {
       expect(res).to.eq(diner.address);
     });
   });
+
+  describe("withdraw", () => {
+    let price = ethers.utils.parseUnits("0.01", "ether");
+
+    it("should fail if the dinner doesn't exist", async function () {
+      await expect(contract.withdraw()).to.be.revertedWith(
+        "Dinner doesn't exist"
+      );
+    });
+
+    it("allows the chef to withdraw only once", async () => {
+      const [chef, diner] = await ethers.getSigners();
+
+      await contract.connect(chef).createDinner("Sushi boat", price);
+      await contract.connect(diner).reserve(chef.address, { value: price });
+
+      await expect(() =>
+        contract.connect(chef).withdraw()
+      ).to.changeEtherBalances([contract, chef], [`-${price}`, price]);
+
+      await expect(contract.connect(chef).withdraw()).to.be.revertedWith(
+        "No balance"
+      );
+    });
+  });
 });
