@@ -3,11 +3,13 @@ import ConnectWallet, { truncateAddress } from "~/dc/connect-wallet";
 import { useDappContext } from "~/hooks/useDappContext";
 import { useGetHosts } from "~/hooks/useGetHosts";
 
-import { reserve } from "~/lib/bento";
+import type { TransactionReceipt } from "@ethersproject/providers";
+import { reserve, Txn } from "~/lib/bento";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Diners() {
   let dappContext = useDappContext();
-  let signer = dappContext.signer;
+  let { signer, updateTransaction } = dappContext;
 
   let hosts = useGetHosts(dappContext);
 
@@ -38,7 +40,16 @@ export default function Diners() {
                 }}
                 className="px-3 py-2 rounded text-sm"
                 onClick={async () => {
-                  await reserve(signer, host.address, host.dinners[0].price);
+                  let txn: Txn = await reserve(
+                    signer,
+                    host.address,
+                    host.dinners[0].price
+                  );
+                  let tr: TransactionReceipt = await txn.wait();
+
+                  console.log("reserve txn done", tr.blockHash);
+                  updateTransaction(tr.blockHash);
+                  toast.success("Reserved!");
                 }}
               >
                 Reserve ✍️

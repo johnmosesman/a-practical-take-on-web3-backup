@@ -5,29 +5,15 @@ import MyDinners from "~/components/my-dinners";
 import { type Dinner, useMyDinners } from "~/hooks/useMyDinners";
 import CreateDinner from "~/components/create-dinner";
 import { ethers, Signer } from "ethers";
+import toast from "react-hot-toast";
 
+import type { TransactionReceipt } from "@ethersproject/providers";
 import Abis from "hardhat/abis.json";
-
-const withdraw = async (signer: Signer) => {
-  console.log("withdraw");
-
-  console.log(await signer.getAddress());
-
-  let contract = new ethers.Contract(
-    Abis["contracts"]["BentoBlocks"]["address"],
-    Abis["contracts"]["BentoBlocks"]["abi"],
-    signer
-  );
-
-  let result = await contract.withdraw();
-
-  // todo: toast
-  console.log("withdraw result:", result);
-};
+import { Txn, withdraw } from "~/lib/bento";
 
 export default function Chefs() {
   let context = useDappContext();
-  let { signer } = context;
+  let { signer, updateTransaction } = context;
 
   let dinners: Dinner[] = useMyDinners(context);
 
@@ -44,7 +30,7 @@ export default function Chefs() {
 
       {signer && (
         <div className="flex flex-row justify-between">
-          <CreateDinner signer={signer} />
+          <CreateDinner context={context} />
 
           <div>
             <p className="text-2xl mb-4">My Dinners</p>
@@ -59,7 +45,11 @@ export default function Chefs() {
                 }}
                 className="px-3 py-2 rounded text-sm"
                 onClick={async () => {
-                  await withdraw(signer);
+                  let txn: Txn = await withdraw(signer);
+                  let tr: TransactionReceipt = await txn.wait();
+
+                  updateTransaction(tr.blockHash);
+                  toast.success("Withdrawn!");
                 }}
               >
                 Withdraw 💰

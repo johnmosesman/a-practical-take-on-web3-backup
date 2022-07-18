@@ -8,6 +8,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Toaster } from "react-hot-toast";
 import { DappContext } from "./contexts/dapp-context";
 import ConnectWallet from "./dc/connect-wallet";
 import { useDappContext } from "./hooks/useDappContext";
@@ -28,6 +29,8 @@ export default function App() {
         <script src="https://cdn.tailwindcss.com"></script>
       </head>
       <body>
+        <Toaster />
+
         <div className="mx-auto max-w-xl m-8">
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-3xl mb-2">BentoBlocks™ 🍱</h1>
@@ -43,7 +46,6 @@ export default function App() {
             </Link>
           </div>
 
-          {/* How do we connect  */}
           {dappContextData && (
             <DappContext.Provider value={dappContextData}>
               <Outlet />

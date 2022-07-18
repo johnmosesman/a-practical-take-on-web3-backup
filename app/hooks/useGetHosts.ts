@@ -67,6 +67,5 @@ export function useGetHosts(dappContext: DappContextType) {
     getHosts(signer).then((hs) => setHosts(hs));
   }, [signer]);
 
-  console.log("hosts", hosts);
   return hosts;
 }

@@ -3,7 +3,7 @@
   "chainId": "4",
   "contracts": {
     "BentoBlocks": {
-      "address": "0x47451486676aD16eAc8AA355fD70d0E18414A54C",
+      "address": "0x89edfF688C86B8570E7091141FAEf3C24CECd0c5",
       "abi": [
         {
           "anonymous": false,

@@ -11,10 +11,10 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log: true,
   });
 
-  console.log("Verifying...");
-  await hre.run("verify:verify", {
-    address: deployed.address,
-    constructorArguments: [],
-  });
+  // console.log("Verifying...");
+  // await hre.run("verify:verify", {
+  //   address: deployed.address,
+  //   constructorArguments: [],
+  // });
 };
 module.exports.tags = ["BentoBlocks"];

@@ -7,8 +7,6 @@ interface MyDinnerProps {
 export default function MyDinners(props: MyDinnerProps) {
   let { dinners } = props;
 
-  console.log("dinners", dinners);
-
   return (
     <div>
       {dinners &&

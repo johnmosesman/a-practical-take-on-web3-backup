@@ -1,16 +1,20 @@
 import { type Signer } from "ethers";
 import { useState } from "react";
-import { createDinner } from "~/lib/bento";
+import { DappContextType } from "~/hooks/useDappContext";
+import { createDinner, Txn } from "~/lib/bento";
+import toast from "react-hot-toast";
+
+import type { TransactionReceipt } from "@ethersproject/providers";
 
 interface CreateDinnerProps {
-  signer: Signer;
+  context: DappContextType;
 }
 
 export default function CreateDinner(props: CreateDinnerProps) {
   let defaultName = "Sushi Town";
   let defaultPrice = "0.01";
 
-  let { signer } = props;
+  let { signer, updateTransaction } = props.context;
 
   let [name, setName] = useState<string>(defaultName);
   let [price, setPrice] = useState<string>(defaultPrice);
@@ -44,7 +48,12 @@ export default function CreateDinner(props: CreateDinnerProps) {
           className="p-4 rounded"
           onClick={async (e) => {
             e.preventDefault();
-            await createDinner(signer, name, price);
+            let txn: Txn = await createDinner(signer, name, price);
+            let tr: TransactionReceipt = await txn.wait();
+
+            console.log("Create txn done");
+            updateTransaction(tr.blockHash);
+            toast.success("Created Dinner!");
           }}
         >
           Create Dinner 🍳
