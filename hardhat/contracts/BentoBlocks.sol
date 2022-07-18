@@ -3,7 +3,7 @@ pragma solidity ^0.8.13;
 
 import "hardhat/console.sol";
 
-contract FriendFood {
+contract BentoBlocks {
     struct Dinner {
         string name;
         uint256 price;

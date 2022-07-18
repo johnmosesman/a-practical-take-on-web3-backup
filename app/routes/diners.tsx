@@ -1,32 +1,9 @@
-import { Link } from "@remix-run/react";
-import { ethers, Signer } from "ethers";
 import MyDinners from "~/components/my-dinners";
 import ConnectWallet, { truncateAddress } from "~/dc/connect-wallet";
 import { useDappContext } from "~/hooks/useDappContext";
-import { useDappData } from "~/hooks/useDappData";
 import { useGetHosts } from "~/hooks/useGetHosts";
 
-import Abis from "hardhat/abis.json";
-
-const reserve = async (signer: Signer, address: string, price: number) => {
-  console.log("reserve");
-
-  console.log(await signer.getAddress(), address);
-
-  let contract = new ethers.Contract(
-    Abis["contracts"]["FriendFood"]["address"],
-    Abis["contracts"]["FriendFood"]["abi"],
-    signer
-  );
-
-  let formattedPrice = ethers.utils.parseUnits(price.toString(), "ether");
-  console.log("formattedPrice", formattedPrice.toString());
-
-  let result = await contract.reserve(address, { value: formattedPrice });
-
-  // todo: toast
-  console.log("reserve result:", result);
-};
+import { reserve } from "~/lib/bento";
 
 export default function Diners() {
   let dappContext = useDappContext();

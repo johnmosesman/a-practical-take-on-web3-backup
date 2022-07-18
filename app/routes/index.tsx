@@ -10,7 +10,7 @@ export default function Index() {
 
   return (
     <div className="mx-auto max-w-xl m-8">
-      <h1 className="text-3xl mb-2">FriendFood™ 🍣</h1>
+      <h1 className="text-3xl mb-2">BentoBlocks™ 🍣</h1>
 
       <div>
         <Link className="mr-4 underline" to="/chefs">

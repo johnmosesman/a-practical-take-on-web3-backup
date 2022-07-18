@@ -14,8 +14,8 @@ const withdraw = async (signer: Signer) => {
   console.log(await signer.getAddress());
 
   let contract = new ethers.Contract(
-    Abis["contracts"]["FriendFood"]["address"],
-    Abis["contracts"]["FriendFood"]["abi"],
+    Abis["contracts"]["BentoBlocks"]["address"],
+    Abis["contracts"]["BentoBlocks"]["abi"],
     signer
   );
 
@@ -51,17 +51,20 @@ export default function Chefs() {
 
             <MyDinners dinners={dinners} />
 
-            <button
-              style={{
-                background: "linear-gradient(270deg, #1BD6CF 0%, #00E5AF 100%)",
-              }}
-              className="px-3 py-2 rounded text-sm"
-              onClick={async () => {
-                await withdraw(signer);
-              }}
-            >
-              Withdraw 💰
-            </button>
+            {dinners && dinners.length > 0 && (
+              <button
+                style={{
+                  background:
+                    "linear-gradient(270deg, #1BD6CF 0%, #00E5AF 100%)",
+                }}
+                className="px-3 py-2 rounded text-sm"
+                onClick={async () => {
+                  await withdraw(signer);
+                }}
+              >
+                Withdraw 💰
+              </button>
+            )}
           </div>
         </div>
       )}

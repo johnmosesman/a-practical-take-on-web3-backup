@@ -15,8 +15,8 @@ const getDinnersForHost = async (
   address: string
 ): Promise<Dinner[]> => {
   let contract = new ethers.Contract(
-    Abis["contracts"]["FriendFood"]["address"],
-    Abis["contracts"]["FriendFood"]["abi"],
+    Abis["contracts"]["BentoBlocks"]["address"],
+    Abis["contracts"]["BentoBlocks"]["abi"],
     signer
   );
 
@@ -37,8 +37,8 @@ const getDinnersForHost = async (
 
 const getHosts = async (signer: Signer): Promise<Host[]> => {
   let contract = new ethers.Contract(
-    Abis["contracts"]["FriendFood"]["address"],
-    Abis["contracts"]["FriendFood"]["abi"],
+    Abis["contracts"]["BentoBlocks"]["address"],
+    Abis["contracts"]["BentoBlocks"]["abi"],
     signer
   );
 

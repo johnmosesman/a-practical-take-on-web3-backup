@@ -5,7 +5,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deployer } = await getNamedAccounts();
 
   console.log("Deploying...");
-  let deployed = await deploy("FriendFood", {
+  let deployed = await deploy("BentoBlocks", {
     from: deployer,
     args: [],
     log: true,
@@ -17,4 +17,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     constructorArguments: [],
   });
 };
-module.exports.tags = ["FriendFood"];
+module.exports.tags = ["BentoBlocks"];

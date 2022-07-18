@@ -1,12 +1,12 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("FriendFood", function () {
+describe("BentoBlocks", function () {
   let contract;
 
   beforeEach(async () => {
-    const FriendFood = await ethers.getContractFactory("FriendFood");
-    contract = await FriendFood.deploy();
+    const BentoBlocks = await ethers.getContractFactory("BentoBlocks");
+    contract = await BentoBlocks.deploy();
     await contract.deployed();
   });
 

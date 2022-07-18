@@ -2,8 +2,8 @@
   "name": "rinkeby",
   "chainId": "4",
   "contracts": {
-    "FriendFood": {
-      "address": "0x3Eb22A18ad051101A697fdE6fCAdA8122B8A6546",
+    "BentoBlocks": {
+      "address": "0x47451486676aD16eAc8AA355fD70d0E18414A54C",
       "abi": [
         {
           "anonymous": false,

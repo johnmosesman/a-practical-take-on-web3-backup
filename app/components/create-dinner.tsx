@@ -1,31 +1,10 @@
-import { ethers, type Signer } from "ethers";
+import { type Signer } from "ethers";
 import { useState } from "react";
-import { type Dinner } from "~/hooks/useMyDinners";
-import Abis from "hardhat/abis.json";
+import { createDinner } from "~/lib/bento";
 
 interface CreateDinnerProps {
   signer: Signer;
 }
-
-const createDinner = async (signer: Signer, name: string, price: string) => {
-  console.log("createDinner");
-
-  console.log(await signer.getAddress(), name, price);
-
-  let contract = new ethers.Contract(
-    Abis["contracts"]["FriendFood"]["address"],
-    Abis["contracts"]["FriendFood"]["abi"],
-    signer
-  );
-
-  let formattedPrice = ethers.utils.parseUnits(price, "ether");
-  console.log("formattedPrice", formattedPrice.toString());
-
-  let result = await contract.createDinner(name, formattedPrice);
-
-  // todo: toast
-  console.log("CreateDinner result:", result);
-};
 
 export default function CreateDinner(props: CreateDinnerProps) {
   let defaultName = "Sushi Town";
