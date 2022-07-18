@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { hooks, metaMask } from "~/connectors/meta-mask";
 const { useAccounts, useError, useIsActivating, useIsActive } = hooks;
 
+export function truncateAddress(address: string): string {
+  return `${address.slice(0, 3)}...${address.slice(-4)}`;
+}
+
 export default function ConnectWallet() {
   const accounts = useAccounts();
   const error = useError();
@@ -9,9 +13,7 @@ export default function ConnectWallet() {
   const isActive = useIsActive();
 
   function truncateAccount(accounts: string[]): string {
-    return accounts
-      .map((account) => `${account.slice(0, 3)}...${account.slice(-4)}`)
-      .join(",");
+    return accounts.map((account) => truncateAddress(account)).join(",");
   }
 
   useEffect(() => {

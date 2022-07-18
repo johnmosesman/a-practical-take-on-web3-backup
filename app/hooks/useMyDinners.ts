@@ -20,6 +20,12 @@ const getDinners = async (signer: Signer): Promise<Dinner[]> => {
   let chefAddress: string = await signer.getAddress();
   let result = await contract.dinners(chefAddress);
 
+  console.log("result", result);
+
+  if (result.price.toString() === "0") {
+    return [];
+  }
+
   return [
     {
       name: result.name,

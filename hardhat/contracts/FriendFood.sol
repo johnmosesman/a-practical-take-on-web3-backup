@@ -13,6 +13,7 @@ contract FriendFood {
     uint256 public constant maxReservations = 5;
     mapping(address => Dinner) public dinners;
     mapping(address => address[]) public reservations;
+    address[] public hosts;
 
     event DinnerCreated(
         address indexed chef,
@@ -26,8 +27,13 @@ contract FriendFood {
         require(price > 0, "Invalid price");
 
         dinners[msg.sender] = Dinner({name: name, price: price, balance: 0});
+        hosts.push(msg.sender);
 
         emit DinnerCreated(msg.sender, name, price);
+    }
+
+    function getHosts() public view returns (address[] memory _hosts) {
+        return hosts;
     }
 
     function reserve(address chef) public payable {

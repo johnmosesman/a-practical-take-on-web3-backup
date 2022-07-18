@@ -18,16 +18,18 @@ describe("FriendFood", function () {
     });
 
     it("creates a new dinner", async () => {
-      const [addr1] = await ethers.getSigners();
+      const [chef] = await ethers.getSigners();
 
       let price = ethers.utils.parseUnits("0.01", "ether");
-      await expect(contract.connect(addr1).createDinner("Sushi boat", price))
+      await expect(contract.connect(chef).createDinner("Sushi boat", price))
         .to.emit(contract, "DinnerCreated")
-        .withArgs(addr1.address, "Sushi boat", price);
+        .withArgs(chef.address, "Sushi boat", price);
 
-      let dinner = await contract.dinners(addr1.address);
+      let dinner = await contract.dinners(chef.address);
       expect(dinner.name).to.eq("Sushi boat");
       expect(dinner.price).to.eq(price);
+
+      expect((await contract.getHosts())[0]).to.eq(chef.address);
     });
   });
 

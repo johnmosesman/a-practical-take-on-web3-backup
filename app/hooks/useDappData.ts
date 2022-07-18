@@ -14,7 +14,7 @@ function getDefaultDappData() {
 
 export function useDappData(dappContext: DappContextType): DappDataType {
   let [dappData, setDappData] = useState<DappDataType>(getDefaultDappData());
-  let balance = useBalance(dappContext);
+  let balance = 0; //useBalance(dappContext);
 
   useEffect(() => {
     /**
