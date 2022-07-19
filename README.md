@@ -1,4 +1,6 @@
-# WIP
+This is an example repo for a talk I gave with the same name. Use this code at your own risk :D
+
+---
 
 ![./public/vaporwave.jpg](./public/vaporwave.jpg)
 
